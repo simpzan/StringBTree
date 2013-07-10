@@ -24,6 +24,7 @@
 # define   	TRIETOSTR_H_
 
 #include <stdio.h>
+#include "io.h"
 #include "tools/Trie.h"
 
 namespace StringBTree

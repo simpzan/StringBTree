@@ -25,6 +25,18 @@
 
 #include <stdio.h>
 
+#ifndef fopen64
+#define fopen64 fopen
+#endif
+
+#ifndef off64_t
+#define off64_t off_t
+#endif
+
+#ifndef fseeko64
+#define fseeko64 fseeko
+#endif
+
 namespace StringBTree
 {
   /// write a string in file

@@ -25,6 +25,7 @@
 
 #include <string>
 #include <vector>
+#include <string.h>
 
 namespace StringBTree
 {

@@ -25,6 +25,8 @@
 
 #include <iostream>
 #include <iterator>
+#include <string.h>
+#include "io.h"
 
 namespace StringBTree
 {

@@ -23,6 +23,7 @@
 #ifndef   	COPYSTRING_H_
 # define   	COPYSTRING_H_
 
+#include <string.h>
 #include <string>
 
 namespace StringBTree

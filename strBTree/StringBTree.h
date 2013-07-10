@@ -27,6 +27,7 @@
 #include <string>
 #include <stdio.h>
 #include "tools/Trie.h"
+#include "io.h"
 
 namespace StringBTree
 {
