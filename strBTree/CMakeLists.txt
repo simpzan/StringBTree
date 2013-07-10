@@ -1,0 +1,23 @@
+INCLUDE_DIRECTORIES(
+	${WIKICLUST_SOURCE_DIR}
+)
+
+ADD_LIBRARY(strBTree
+	CopyString.h
+	CopyString.cpp
+	SortStringsFile.h
+	StringBloc.h
+	StringBloc.cpp
+	StringFileAccess.h
+	StringFileAccess.cpp
+	StringBTree.cpp
+	StringBTree.h
+	StrTransitionIterator.cpp
+	StrTransitionIterator.h
+	StrTrieInterpreter.cpp
+	StrTrieInterpreter.h
+	TrieToStr.cpp
+	TrieToStr.h
+	io.cpp
+	io.h
+)
