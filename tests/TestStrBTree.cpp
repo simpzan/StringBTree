@@ -177,6 +177,104 @@ void UnitTest::TestStrBTree::testSimpleWithDuplicates()
     } 
 }
 
+void UnitTest::TestStrBTree::testSimple2()
+{
+  try
+    {
+      FILE *f = fopen("test", "wb");
+      CPPUNIT_ASSERT(f != 0x0);
+
+      StringBTree::writeString(f, "pbc", 3);
+      StringBTree::writeString(f, "abc", 3);
+      StringBTree::writeString(f, "z", 1);
+      StringBTree::writeString(f, "abu", 3);
+      StringBTree::writeString(f, "a", 1);
+      StringBTree::writeString(f, "qt", 2);
+      StringBTree::writeString(f, "bez", 3);
+      StringBTree::writeString(f, "zbc", 3);
+      StringBTree::writeString(f, "ab", 2);
+      StringBTree::writeString(f, "pbcd", 4);
+
+      StringBTree::writeString(f, "bez", 3);
+      StringBTree::writeString(f, "ab", 2);
+      StringBTree::writeString(f, "z", 1);
+      StringBTree::writeString(f, "abc", 3);
+      StringBTree::writeString(f, "zbc", 3);
+      StringBTree::writeString(f, "pbc", 3);
+      StringBTree::writeString(f, "qt", 2);
+      StringBTree::writeString(f, "a", 1);
+      StringBTree::writeString(f, "abu", 3);
+      StringBTree::writeString(f, "pbcd", 4);
+      fclose(f);
+  
+      // Sort file
+      StringBTree::SortStringsFile sort("test", false);
+      sort.start("/tmp", 2);
+      uint64_t nbValues = sort.getNbValues();
+      CPPUNIT_ASSERT_EQUAL((uint64_t)10, nbValues);
+
+      StringBTree::StrBTree bTree;
+  
+      // Create String B Tree
+      bTree.build("btree", "test", nbValues);
+
+      StringBTree::StrBTree bTree2;
+      bTree2.load("btree");
+  
+      CPPUNIT_ASSERT_EQUAL((off64_t)1, bTree2.getEntry("a", 1));
+      CPPUNIT_ASSERT_EQUAL((off64_t)0, bTree2.getEntry("b", 1));
+      CPPUNIT_ASSERT_EQUAL((off64_t)0, bTree2.getEntry("c", 1));
+      CPPUNIT_ASSERT_EQUAL((off64_t)0, bTree2.getEntry("d", 1));
+      CPPUNIT_ASSERT_EQUAL((off64_t)0, bTree2.getEntry("p", 1));
+      CPPUNIT_ASSERT_EQUAL((off64_t)0, bTree2.getEntry("k", 1));
+      CPPUNIT_ASSERT_EQUAL((off64_t)9, bTree2.getEntry("z", 1));
+      
+      CPPUNIT_ASSERT_EQUAL((off64_t)0, bTree2.getEntry("aa", 2));
+      CPPUNIT_ASSERT_EQUAL((off64_t)2, bTree2.getEntry("ab", 2));
+      CPPUNIT_ASSERT_EQUAL((off64_t)0, bTree2.getEntry("ac", 2));
+
+      CPPUNIT_ASSERT_EQUAL((off64_t)0, bTree2.getEntry("abb", 3));
+      CPPUNIT_ASSERT_EQUAL((off64_t)3, bTree2.getEntry("abc", 3));
+      CPPUNIT_ASSERT_EQUAL((off64_t)0, bTree2.getEntry("abd", 3));
+
+      CPPUNIT_ASSERT_EQUAL((off64_t)0, bTree2.getEntry("abt", 3));
+      CPPUNIT_ASSERT_EQUAL((off64_t)4, bTree2.getEntry("abu", 3));
+      CPPUNIT_ASSERT_EQUAL((off64_t)0, bTree2.getEntry("abv", 3));
+
+      CPPUNIT_ASSERT_EQUAL((off64_t)0, bTree2.getEntry("bey", 3));
+      CPPUNIT_ASSERT_EQUAL((off64_t)5, bTree2.getEntry("bez", 3));
+      CPPUNIT_ASSERT_EQUAL((off64_t)0, bTree2.getEntry("beA", 3));
+
+      CPPUNIT_ASSERT_EQUAL((off64_t)0, bTree2.getEntry("pbb", 3));
+      CPPUNIT_ASSERT_EQUAL((off64_t)6, bTree2.getEntry("pbc", 3));
+      CPPUNIT_ASSERT_EQUAL((off64_t)0, bTree2.getEntry("pbd", 3));
+
+      CPPUNIT_ASSERT_EQUAL((off64_t)0, bTree2.getEntry("pbcc", 4));
+      CPPUNIT_ASSERT_EQUAL((off64_t)7, bTree2.getEntry("pbcd", 4));
+      CPPUNIT_ASSERT_EQUAL((off64_t)0, bTree2.getEntry("pbce", 4));
+
+      CPPUNIT_ASSERT_EQUAL((off64_t)0, bTree2.getEntry("qs", 2));
+      CPPUNIT_ASSERT_EQUAL((off64_t)8, bTree2.getEntry("qt", 2));
+      CPPUNIT_ASSERT_EQUAL((off64_t)0, bTree2.getEntry("qu", 2));
+
+      CPPUNIT_ASSERT_EQUAL((off64_t)0, bTree2.getEntry("x", 1));
+      CPPUNIT_ASSERT_EQUAL((off64_t)0, bTree2.getEntry("y", 1));
+      CPPUNIT_ASSERT_EQUAL((off64_t)9, bTree2.getEntry("z", 1));
+
+      CPPUNIT_ASSERT_EQUAL((off64_t)0, bTree2.getEntry("zbb", 3));
+      CPPUNIT_ASSERT_EQUAL((off64_t)10, bTree2.getEntry("zbc", 3));
+      CPPUNIT_ASSERT_EQUAL((off64_t)0, bTree2.getEntry("zbd", 3));
+
+      ToolBox::unlink("test");
+      ToolBox::unlink("btree");
+    }
+  catch (ToolBox::Exception &e)
+    {
+      std::cerr << e;
+      throw e;
+    } 
+}
+
 void UnitTest::TestStrBTree::testSimple()
 {
   try

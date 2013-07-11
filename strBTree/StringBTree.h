@@ -25,6 +25,7 @@
 
 #include <stdint.h>
 #include <string>
+#include <vector>
 #include <stdio.h>
 #include "tools/Trie.h"
 #include "io.h"
@@ -40,12 +41,13 @@ namespace StringBTree
   class StrBTree
     {
     public:
+      StrBTree();
       StrBTree(const std::string &inputFile, uint64_t nbValuesInFile);
       ~StrBTree();
 
     private:
       /// avoid default constructor
-      StrBTree();
+      //StrBTree();
       /// avoid copy constructor
       StrBTree(const StrBTree &e);
       /// avoid affectation operator
@@ -63,11 +65,17 @@ namespace StringBTree
        */
       off64_t getEntry(const char *str, unsigned strLen);
 
+      // load the existing string B-tree.
+      bool load(const std::string &idxFile);
+      bool build(const std::string &idxFile, const std::string &inputFile, uint64_t nbValuesInFile);
+
     protected:
       void _realloc(unsigned size);
       void _writeTrie(const ToolBox::Trie<off64_t> &trie, bool leaf);
       void _flushFinalNode(bool force);
       void _init(unsigned nbValuesInFile);
+      void _preConstruct();
+      void _postConstruct();
 
     private:
       std::string		_inputFile;
@@ -86,6 +94,8 @@ namespace StringBTree
       off64_t			_filePos;
       std::string		_finalNodeFirstString;
       std::string		_middleNodeFirstString;
+
+      std::string   _root_buff;
   };
 }
 

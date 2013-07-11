@@ -42,6 +42,7 @@ namespace UnitTest
   {
     CPPUNIT_TEST_SUITE(TestStrBTree);
     CPPUNIT_TEST(testSimple);
+    CPPUNIT_TEST(testSimple2);
     CPPUNIT_TEST(testSimpleWithDuplicates);
     CPPUNIT_TEST(testComplex);
     CPPUNIT_TEST(testComplex2);
@@ -49,6 +50,7 @@ namespace UnitTest
 
   private:
     void testSimple();
+    void testSimple2();
     void testSimpleWithDuplicates();
     void testComplex();
     void testComplex2();
