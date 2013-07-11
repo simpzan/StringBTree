@@ -23,10 +23,12 @@
 #ifndef   	SORTFILE_H_
 # define   	SORTFILE_H_
 
-#include <list>
-#include <string>
 #include <stdio.h>
 #include <pthread.h>
+#include <stdint.h>
+#include <algorithm>
+#include <list>
+#include <string>
 
 namespace ToolBox
 {

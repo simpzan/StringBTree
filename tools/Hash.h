@@ -22,6 +22,7 @@
 #ifndef   	HASH_H_
 # define   	HASH_H_
 
+#include <string.h>
 #include <vector>
 
 namespace ToolBox

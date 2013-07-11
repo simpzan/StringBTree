@@ -24,13 +24,14 @@
 # define   	IO_H_
 
 #include <stdio.h>
+#include <stdint.h>
 
 #ifndef fopen64
 #define fopen64 fopen
 #endif
 
 #ifndef off64_t
-#define off64_t off_t
+#define off64_t uint64_t
 #endif
 
 #ifndef fseeko64
