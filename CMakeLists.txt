@@ -31,4 +31,5 @@ SET(GLIB_INCLUDE "/usr/include/glib-2.0")
 SET(CPPUNIT_INCLUDE "/usr/src")
 SET(EXPAT_INCLUDE "/usr/src")
 
-SUBDIRS(tools strBTree tests)
+SUBDIRS(tools strBTree tests sample)
+

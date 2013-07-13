@@ -76,6 +76,7 @@ namespace StringBTree
       void _init(unsigned nbValuesInFile);
       void _preConstruct();
       void _postConstruct();
+      void _flushMiddleNode();
 
     private:
       std::string		_inputFile;

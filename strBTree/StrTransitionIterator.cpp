@@ -78,7 +78,8 @@ StringBTree::StrTransitionIterator& StringBTree::StrTransitionIterator::operator
 
 const unsigned char StringBTree::StrTransitionIterator::operator*() const
 {
-  return _str[_position];
+  unsigned char ch = _str[_position];
+  return ch;
 }
 
 const unsigned char* StringBTree::StrTransitionIterator::operator->() const

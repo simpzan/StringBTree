@@ -205,13 +205,16 @@ void UnitTest::TestStrBTree::testSimple2()
       StringBTree::writeString(f, "a", 1);
       StringBTree::writeString(f, "abu", 3);
       StringBTree::writeString(f, "pbcd", 4);
+
+      const char *token = "中文";
+      StringBTree::writeString(f, token, strlen(token));
       fclose(f);
   
       // Sort file
       StringBTree::SortStringsFile sort("test", false);
       sort.start("/tmp", 2);
       uint64_t nbValues = sort.getNbValues();
-      CPPUNIT_ASSERT_EQUAL((uint64_t)10, nbValues);
+      CPPUNIT_ASSERT_EQUAL((uint64_t)11, nbValues);
 
       StringBTree::StrBTree bTree;
   
@@ -264,6 +267,10 @@ void UnitTest::TestStrBTree::testSimple2()
       CPPUNIT_ASSERT_EQUAL((off64_t)0, bTree2.getEntry("zbb", 3));
       CPPUNIT_ASSERT_EQUAL((off64_t)10, bTree2.getEntry("zbc", 3));
       CPPUNIT_ASSERT_EQUAL((off64_t)0, bTree2.getEntry("zbd", 3));
+
+      CPPUNIT_ASSERT_EQUAL((off64_t)11, bTree2.getEntry(token, strlen(token)));
+
+
 
       ToolBox::unlink("test");
       ToolBox::unlink("btree");

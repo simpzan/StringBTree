@@ -156,6 +156,9 @@ void StringBTree::StrBTree::constructBTree(const std::string &outFilename)
   catch (ToolBox::EOFException &e) {}
   if (_nbValuesCurrentFinalNode > 0)
     _flushFinalNode(true);
+  if (_nbValuesCurrentMiddleNode > 0) {
+    _flushMiddleNode();
+  }
   fclose(input);
 
   _postConstruct();
@@ -259,4 +262,14 @@ void StringBTree::StrBTree::_flushFinalNode(bool force)
     assert(_nbValuesRootNode <= _nbValuesPerNode);
     _middleNode->clear();
   }
+}
+
+void StringBTree::StrBTree::_flushMiddleNode() {
+  off64_t pos = _filePos;
+    _writeTrie(*_middleNode, false);
+    _nbValuesCurrentMiddleNode = 0;
+    _rootNode->addEntry(_middleNodeFirstString.c_str(), _middleNodeFirstString.size(), pos + 1);
+    ++_nbValuesRootNode;
+    assert(_nbValuesRootNode <= _nbValuesPerNode);
+    _middleNode->clear();
 }
